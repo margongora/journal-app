@@ -1,9 +1,8 @@
 import JournalForm from "../components/journal-form";
 import { ScrollArea } from "../components/ui/scroll-area";
-import { Separator } from "../components/ui/separator";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import { Journal } from "../db/schema/journal";
-import { Card, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardHeader, CardTitle } from "../components/ui/card";
+import JournalTable from "../components/journal-table";
 
 const getJournals = async () => {
   const res = await fetch(`${process.env.URL}/api/journals`, { cache: 'no-store' });
@@ -24,31 +23,7 @@ export default async function Home() {
           </CardTitle>
         </CardHeader>
         <ScrollArea>
-          <Table className="m-2 p-2">
-            <TableHeader>
-              <TableRow>
-                <TableHead>
-                  Title
-                </TableHead>
-                <TableHead>
-                  Time Created
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="m-2 p-2">
-              {(journals.length !== 0) ? journals.map((journal) => {
-                console.log(journal);
-                return (
-                  <TableRow key={journal.id}>
-                    <TableCell>{journal.title}</TableCell>
-                    <TableCell>{journal.date_created}</TableCell>
-                  </TableRow>
-                )
-              }) : (
-                <p>No journals available right now.</p>
-              )}
-            </TableBody>
-          </Table>
+          <JournalTable journals={journals} />
         </ScrollArea>
       </Card>
       <Card>

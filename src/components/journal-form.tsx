@@ -49,6 +49,9 @@ const JournalForm = () => {
 			className: 'm-2 p-2 shadow-lg bg-green-50 border border-black'
 		});
 
+		// Clear form
+		form.reset();
+
 		// Refresh data on page
 		router.refresh();
 	}
