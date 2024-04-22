@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={ptsans.className}>
         <main className="flex flex-col w-full h-dvh bg-slate-200" >
-          <div className="border-b border-black shadow-l">
+          <div className="border-b border-black shadow-lg">
             <div className="flex h-16 items-center justify-between px-4">
               <div className="flex gap-4">
                 <BsJournalBookmarkFill className="my-1" />

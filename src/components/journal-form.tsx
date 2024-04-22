@@ -2,10 +2,13 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from './ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
+import { Separator } from './ui/separator';
+import { useRouter } from 'next/navigation';
 
 const JournalSchema = z.object({
 	title: z.string().min(2, {
@@ -19,6 +22,10 @@ const JournalSchema = z.object({
 });
 
 const JournalForm = () => {
+	// Hooks
+	const { toast } = useToast();
+	const router = useRouter();
+
 	const form = useForm<z.infer<typeof JournalSchema>>({
 		resolver: zodResolver(JournalSchema),
 		defaultValues: {
@@ -27,14 +34,28 @@ const JournalForm = () => {
 		}
 	});
 
-	const onSubmit = (values: z.infer<typeof JournalSchema>) => {
-		// Do something with the form values
-		console.log(values);
+	const onSubmit = async (values: z.infer<typeof JournalSchema>) => {
+
+		// Send form values using JSON
+		await fetch('/api/journals/', {
+			body: JSON.stringify(values),
+			method: 'POST'
+		});
+
+		// Add a toast notification
+		toast({
+			title: 'Submitted journal!',
+			description: 'Journal submitted to database.',
+			className: 'm-2 p-2 shadow-lg bg-green-50 border border-black'
+		});
+
+		// Refresh data on page
+		router.refresh();
 	}
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-2 m-2 p-2'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-2 mx-2 px-2'>
 				<FormField
 					control={form.control}
 					name='title'
@@ -47,9 +68,11 @@ const JournalForm = () => {
 							<FormDescription>
 								This is the title of your journal. It can be anything.
 							</FormDescription>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
+				<Separator />
 				<FormField
 					control={form.control}
 					name='content'
@@ -62,7 +85,9 @@ const JournalForm = () => {
 							<FormDescription>
 								This is the content of your journal. Write about whatever you want!
 							</FormDescription>
+							<FormMessage />
 						</FormItem>
+
 					)}
 				/>
 				<Button className='my-4' type='submit'>Submit Journal</Button>
