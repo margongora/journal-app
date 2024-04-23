@@ -25,5 +25,10 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
 	const data = await req.json();
-	await db.update(journals).set(data).where(eq(journals.id, data.id))
+	await db.update(journals).set(data).where(eq(journals.id, data.id));
+}
+
+export async function DELETE(req: NextRequest) {
+	const data = await req.json();
+	await db.delete(journals).where(eq(journals.id, data.id));
 }

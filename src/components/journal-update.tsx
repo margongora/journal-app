@@ -52,7 +52,7 @@ const JournalUpdate = ({ journal }: JournalUpdateProps) => {
 		toast({
 			title: 'Updated journal!',
 			description: 'Journal updated in database.',
-			className: 'm-2 p-2 shadow-lg border border-black bg-blue-50'
+			className: 'm-2 p-2 shadow-lg border border-black bg-green-50'
 		})
 
 		router.refresh();

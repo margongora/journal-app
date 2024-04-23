@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import JournalUpdate from "./journal-update";
 import JournalViewer from "./journal-viewer";
 import { Separator } from "./ui/separator";
+import JournalDelete from "./journal-delete";
 
 interface JournalTableProps {
 	journals: Journal[]
@@ -25,10 +26,10 @@ const JournalTable = ({ journals }: JournalTableProps) => {
 						<TableRow key={journal.id}>
 							<TableCell>{journal.title}</TableCell>
 							<TableCell>{journal.date_created}</TableCell>
-							<TableCell>
+							<TableCell className="flex flex-row gap-2">
 								<JournalViewer journal={journal} />
-								<Separator orientation="vertical" />
 								<JournalUpdate journal={journal} />
+								<JournalDelete journal={journal} />
 							</TableCell>
 						</TableRow>
 					)
