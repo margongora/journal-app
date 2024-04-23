@@ -1,6 +1,8 @@
 import { Journal } from "../db/schema/journal";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import JournalUpdate from "./journal-update";
+import JournalViewer from "./journal-viewer";
+import { Separator } from "./ui/separator";
 
 interface JournalTableProps {
 	journals: Journal[]
@@ -8,15 +10,15 @@ interface JournalTableProps {
 
 const JournalTable = ({ journals }: JournalTableProps) => {
 	return (
-		<Table className="m-2 p-2">
-			<TableHeader>
+		<Table className="px-2 mx-2">
+			<TableHeader className="sticky">
 				<TableRow>
 					<TableHead>Title</TableHead>
 					<TableHead>Time Created</TableHead>
 					<TableHead>Actions</TableHead>
 				</TableRow>
 			</TableHeader>
-			<TableBody className="m-2 p-2">
+			<TableBody>
 				{(journals.length !== 0) ? journals.map((journal) => {
 					console.log(journal);
 					return (
@@ -24,6 +26,8 @@ const JournalTable = ({ journals }: JournalTableProps) => {
 							<TableCell>{journal.title}</TableCell>
 							<TableCell>{journal.date_created}</TableCell>
 							<TableCell>
+								<JournalViewer journal={journal} />
+								<Separator orientation="vertical" />
 								<JournalUpdate journal={journal} />
 							</TableCell>
 						</TableRow>

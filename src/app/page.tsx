@@ -1,5 +1,5 @@
 import JournalForm from "../components/journal-form";
-import { ScrollArea } from "../components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
 import { Journal } from "../db/schema/journal";
 import { Card, CardHeader, CardTitle } from "../components/ui/card";
 import JournalTable from "../components/journal-table";
@@ -15,16 +15,14 @@ export default async function Home() {
   const [journals] = await Promise.all([journalData]);
 
   return (
-    <div className="flex flex-col gap-4 h-full m-4 p-4 border border-black rounded shadow-lg hover:shadow-2xl transition">
-      <Card>
+    <div className="flex flex-col max-h-[90%] min-h-fit overflow-scroll gap-2 m-4 p-4 border border-black rounded shadow-lg hover:shadow-2xl transition">
+      <Card className='max-h-[45%] overflow-y-auto'>
         <CardHeader>
           <CardTitle>
             View your past journals here!
           </CardTitle>
         </CardHeader>
-        <ScrollArea>
-          <JournalTable journals={journals} />
-        </ScrollArea>
+        <JournalTable journals={journals} />
       </Card>
       <Card>
         <CardHeader>
