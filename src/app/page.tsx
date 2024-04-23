@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle } from "../components/ui/card";
 import JournalTable from "../components/journal-table";
 
 const getJournals = async () => {
-  const res = await fetch(`${process.env.URL}/api/journals`, { cache: 'no-store' });
+  const res = await fetch(`${process.env.URL || 'https://journal-app-snowy-seven.vercel.app/'}/api/journals`, { cache: 'no-store' });
   return res.json().then((data) => data.data as Journal[]);
 }
 
