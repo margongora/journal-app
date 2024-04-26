@@ -2,7 +2,6 @@ import { Journal } from "../db/schema/journal";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import JournalUpdate from "./journal-update";
 import JournalViewer from "./journal-viewer";
-import { Separator } from "./ui/separator";
 import JournalDelete from "./journal-delete";
 
 interface JournalTableProps {
@@ -19,7 +18,7 @@ const JournalTable = ({ journals }: JournalTableProps) => {
 					<TableHead>Actions</TableHead>
 				</TableRow>
 			</TableHeader>
-			<TableBody>
+			<TableBody suppressHydrationWarning>
 				{(journals.length !== 0) ? journals.map((journal) => {
 					console.log(journal);
 					return (
@@ -34,7 +33,11 @@ const JournalTable = ({ journals }: JournalTableProps) => {
 						</TableRow>
 					)
 				}) : (
-					<p>No journals available right now.</p>
+					<TableRow>
+						<TableCell>
+							No journals to display right now.
+						</TableCell>
+					</TableRow>
 				)}
 			</TableBody>
 		</Table>

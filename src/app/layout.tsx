@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { PT_Sans } from "next/font/google";
 import { BsJournalBookmarkFill } from 'react-icons/bs'
 import "./globals.css";
-import { MantineProvider } from "@mantine/core";
 import { Toaster } from "../components/ui/toaster";
+import { SignIn } from "../components/sign-in";
 
 const ptsans = PT_Sans({
   weight: '400',
@@ -20,6 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={ptsans.className}>
@@ -30,6 +31,7 @@ export default function RootLayout({
                 <BsJournalBookmarkFill className="my-1" />
                 Have a handy journaling app c:
               </div>
+              <SignIn />
             </div>
           </div>
           {children}
